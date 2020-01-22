@@ -1,6 +1,9 @@
 package util;
 
-public class BinarySearchTree<E> {
+import java.util.Iterator;
+import java.util.Stack;
+
+public class BinarySearchTree<E> implements Iterable<E>, Iterator<E> {
 
     private static class Node<E> {
         E e;
@@ -22,6 +25,10 @@ public class BinarySearchTree<E> {
 
     private Node<E> root;
 
+    private Node<E> next;
+    private Node<E> lastVisitedNode;
+    private Stack<Node<E>> visitingNodes;
+
     public BinarySearchTree(E root) {
         this.root = new Node<>(root);
         this.size = 1;
@@ -38,8 +45,6 @@ public class BinarySearchTree<E> {
 
         if (root == null) {
             root = new Node<>(data);
-            size++;
-            return null;
         } else {
             int cmp;
             Comparable<? super E> comparable = (Comparable<? super E>) data;
@@ -61,10 +66,9 @@ public class BinarySearchTree<E> {
             else
                 parent.right = current;
 
-            size++;
-
-            return null;
         }
+        size++;
+        return null;
     }
 
     public int size() {
@@ -83,5 +87,29 @@ public class BinarySearchTree<E> {
             toString.append(t.e).append(" ");
             inorder(t.right, toString);
         }
+    }
+
+    @Override
+    public Iterator<E> iterator() {
+        this.next = this.root;
+        this.lastVisitedNode = null;
+        visitingNodes = new Stack<>();
+        visitingNodes.push(this.next);
+        return this;
+    }
+
+    @Override
+    public boolean hasNext() {
+        return !visitingNodes.empty();
+    }
+
+    @Override
+    public E next() {
+        return traverseInorder();
+    }
+
+    private E traverseInorder() {
+
+        return null;
     }
 }
