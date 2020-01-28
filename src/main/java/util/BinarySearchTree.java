@@ -3,7 +3,6 @@ package util;
 import java.util.AbstractSet;
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.Stack;
 
 public class BinarySearchTree<E> extends AbstractSet<E> implements Iterator<E> {
 
@@ -74,8 +73,6 @@ public class BinarySearchTree<E> extends AbstractSet<E> implements Iterator<E> {
         size++;
         return true;
     }
-
-
 
     public String inorderString() {
         StringBuilder toString = new StringBuilder("[ ");
